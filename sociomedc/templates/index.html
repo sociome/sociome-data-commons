@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table">
+    <thead>
+      <tr>
+          <th>Dataset Name</th>
+          <th>Description</th>
+          <th>Download</th>
+      </tr>
+      
+    </thead>
+    {% for dataset in datasets %}
+        <tr>
+          <td>{{dataset.name}}</td>
+          <td>{{dataset.desc}}</td>
+          <td><a href="/dataset?id={{dataset.uuid}}">Link</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

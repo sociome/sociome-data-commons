@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+
+  <h2>Add a new dataset</h2>
+  <label for="name">Dataset Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="desc">Short Dataset Description:</label><br>
+  <textarea id="desc" name="desc" rows="4" cols="50">
+  </textarea><br>
+
+
+  <h2>Add Metadata</h2>
+
+  <a onclick='$("#owner").toggle();'>Who Collected This Data?</a><br/>
+  <div id="owner" style="display: none;">
+	  <label for="owner">Dataset Owner:</label><br>
+	  <input type="text" id="ownerinp" name="owner"><br>
+  </div>
+
+  <p><br></p>
+
+  <a onclick='$("#type").toggle();'>What Type of Data Is It?</a><br/>
+  <div id="type" style="display: none;">
+	  <label for="type">Dataset Category:</label><br>
+	  <select id="typeinp" name="type">
+	  <option value="EnvironmentalData">Environmental Data</option>
+	  <option value="DemographicData">Demographic Data</option>
+	  <option value="PropertyData">Property Data</option>
+	  <option value="SafetyData">Safety Data</option>
+	  <option value="AccessData">Access Data</option>
+	  <option value="EconomicActivityData">Economic Activity</option>
+	  </select>
+
+  </div>
+
+  <h2>Upload</h2>
+
+  <input type="file" id="filename" name="filename"><br>
+  <input type="submit">
+</form>
+{% endblock %}

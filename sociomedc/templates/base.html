@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'bulma.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Sociome Data Commons</title>
+</head>
+
+<body>
+    
+<div class="container is-fluid">
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item">
+      Sociome Data Commons
+    </a>
+    <a class="navbar-item" href="/">
+        Home
+      </a>
+           	<a class="navbar-item" href="/upload">
+        Add Dataset
+      </a>
+
+            <a class="navbar-item" href="/accounts/login">
+      Log in
+      </a>
+  </div>
+
+</nav>
+</div>
+
+
+<div class="container is-fluid">
+  <div class="content">
+  	{% block content %}
+    {% endblock %}
+  </div>
+</div>
+
+</body>
+
+</html>
