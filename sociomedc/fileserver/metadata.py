@@ -27,7 +27,6 @@ def do_html(path):
 
         name = str(element.text).strip() + ' ' + data_documentation_enum[level]
 
-
         header = '<h'+str(level*2)+'>' + ' ' + str(element.tag) + ': ' + str(name) + '</h'+str(level*2)+'>'
 
         lines.append('<div class="content" style="padding-left: %spx;">' % (str(15*(level-1))))
@@ -56,5 +55,46 @@ def do_html(path):
                         lines.append('<p>-' + '<b>'+child.text+"</b>: " + child.attrib.get('description',"") + "</p>")
 
         lines.append('</div>')
+
+    return '\n'.join(lines)
+
+
+def do_form(path):
+    lines = []
+    e = ET.parse(path + "/core.xml")
+    for element, level in depth_iter(e.getroot()):
+
+        name = str(element.text).strip() + ' ' + data_documentation_enum[level]
+        name = name.strip()
+
+        if level != 3:
+            continue
+
+        
+        toggle = "<a onclick='$(\"#%s\").toggle();'>Add: %s</a><br/>" % (name, name)
+
+        lines.append(toggle)
+        lines.append('<div id="%s" style="display: none;">' % (name))
+        lines.append('<span style="font-size: 10px;">%s</span><br/>' % (element.attrib['description']))
+
+        if str(element.tag) == 'attribute':
+            reference_file = element.attrib['compileType']
+
+            if reference_file in data_type_enum:
+                lines.append("<input type='text' name='%s'>" % name)
+            else:
+                lines.append('<select id="%sinp" name="%s">' % (name, name))
+
+                ref_e = ET.parse(path + '/' + reference_file + '.xml')
+
+                for ref_element, ref_level in depth_iter(ref_e.getroot()):
+
+                    if ref_element.attrib.get('name', '') == name.strip():
+                        for child in (ref_element):
+                            lines.append('<option value="%s">%s</option>' % (child.text, child.text))
+
+                lines.append('</select>')
+
+        lines.append('</div><br/>')
 
     return '\n'.join(lines)

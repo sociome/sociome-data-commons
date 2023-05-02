@@ -29,7 +29,7 @@
 	</attribute>
 
 
-	<attribute name="GeographicalUnit">
+	<attribute name="GeographicUnit">
 
 		<value description="Data that are not linked to a particular geographic unit, e.g., tied to the individual/household.">NoneUnit</value>
 		

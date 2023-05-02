@@ -21,25 +21,10 @@
 
 		  <attribute description="The organization that processed the data into its current form." compileType="string">ProcessingOrganization</attribute>
 
-		</dataset>
-
-		<quality description="Documentation related to data quality.">
-		  <attribute description="An internal unique name that we will refer to this data asset. All quality records are linked to a particular dataset. " compileType="string" integrity="foreign">ReferringDataset</attribute>
-
 		  <attribute description="A description of any incompleteness in this dataset." compileType="dictionary">Missingness</attribute>
 
 		  <attribute description="A description of any incorrect values in this dataset." compileType="dictionary">Incorrectness</attribute>
 
-		</quality>
-
-
-		<notebook description="Documentation of Jupyter notebook assets.">
-		  <attribute description="All notebook records are linked to a set of datasets that they proces." compileType="string" integrity="foreign" cardinality="many">InputDatasets</attribute>
-
-		  <attribute description="All notebook records are linked to a set of output datasets that they proces." compileType="string" integrity="foreign" cardinality="many">OutputDatasets</attribute>
-
-		  <attribute description="A simple description of the purpose of the notebook." compileType="string">SimpleNotebookPurpose</attribute>
-
-		</notebook>
+		</dataset>
 
 	</core>

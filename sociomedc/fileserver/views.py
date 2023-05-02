@@ -18,7 +18,8 @@ def dictionary(request):
 def upload(request):
 
     if request.method == 'GET':
-        return render(request, 'upload.html')
+        str = do_form('../metadata')
+        return render(request, 'upload.html', {'metadata': str})
 
     if request.method == 'POST':
 
