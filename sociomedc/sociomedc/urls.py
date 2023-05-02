@@ -23,5 +23,6 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),  # new
     path('', index),
     path('upload', upload),
-    path('dataset', dataset)
+    path('dataset', dataset),
+    path('dictionary', dictionary)
 ]

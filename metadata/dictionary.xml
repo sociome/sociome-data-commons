@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<dictionary>
+	<attribute name="DataCategory">
+		<value description="Data which refer to measurements of environmental contaminants/conditions such as air pollution, light, noise, and temperature.">EnvironmentalData</value>
+
+		<value description="Data which refer to commonly used demographic variables such as race/ethnicity, income, eductional level, and household make up.">DemographicData</value>
+
+		<value description="Data which refers to condition, values, or age of individual properties in a region.">PropertyData</value>
+
+		<value description="Data which refers to observations about crime, safety, and other related risk factors in a region.">SafetyData</value>
+
+		<value description="Data which refers to observations about proximity and access to certain neighborhood resources.">AccessData</value>
+
+		<value description="Data which refers to measurements of economic activity in a certain region.">EconomicActivityData</value>
+	</attribute>
+
+
+	<attribute name="DataType">
+		<value description="Data that are linked to an individual patient.">IndividualData</value>
+
+		<value description="Data that are linked to associations, institutions, agencies, businesses, political parties, schools, etc..">OrganizationData</value>
+
+		<value description="Data that are linked to a person or a group of persons who share the same dwelling unit and common living arrangements.">HouseholdData</value>
+
+		<value description="Data that are linked to any type of incident, occurrence, or activity. Events are linked to GeographicUnits">EventData</value>
+
+		<value description="Data that are linked to a some GeographicalUnit.">LocationData</value>
+
+	</attribute>
+
+
+	<attribute name="GeographicalUnit">
+
+		<value description="Data that are not linked to a particular geographic unit, e.g., tied to the individual/household.">NoneUnit</value>
+		
+		<value description="Data that are linked to a housing unit which is a house, an apartment, a mobile home, a group of rooms, or a single room that is occupied (or if vacant, is intended for occupancy) as separate living quarters.">HousingUnit</value>
+
+		<value description="Data that are linked to a specific latitude and longitude.">LatLongUnit</value>
+
+		<value description="Data that are linked to census blocks. A census block is the smallest geographic unit used by the United States Census Bureau for tabulation of 100-percent data.">CensusBlockUnit</value>
+
+		<value description="Data that are linked to census tracts. In the U.S., census tracts are designed to be relatively homogeneous units with respect to population characteristics, economic status, and living conditions and average about 4,000 inhabitants">CensusTractUnit</value>
+
+		<value description="Data that are linked to zipcodes. A ZIP Code is a postal code used by the United States Postal Service (USPS).">ZipCodeUnit</value>
+
+		<value description="Data that are linked to some well-defined boundary of neighborhood but does not fall into one of the above categories.">OtherNeighborhoodUnit</value>
+	</attribute>
+
+	<attribute name="TimeUnit">
+		
+		<value description="Observation is not tied to a particular time instant or period.">NoneUnit</value>
+
+		<value description="Capture one-time, individual occurrences, with a limited, or short duration.">InstantUnit</value>
+
+		<value description="Capture on going processes with a one-month update cycle.">MonthlyUnit</value>
+
+		<value description="Capture on going processes with a one-quarter update cycle.">QuarterlyUnit</value>
+
+		<value description="Capture on going processes with a one-year update cycle.">YearlyUnit</value>
+	</attribute>
+
+
+	<attribute name="Missingness">
+		
+		<value description="The collected records have known missing cell values marked by a common indicator such as None, NaN, etc.">InRecordMissing</value>
+
+		<value description="The collected records are known to be incomplete where known units are missing from the dataset.">CompletelyMissing</value>
+
+	</attribute>
+
+
+	<attribute name="Incorrectness">
+		
+		<value description="The collected records have apparently incorrect values due to failures in the collection device">SensorFailure</value>
+
+		<value description="The collected records have apparently incorrect values due to survey subjects misrepresenting (either intentionally or unintentionally) the data">ResponseBias</value>
+
+		<value description="The collected records have apparently incorrect values due to estimation">EstimationError</value>
+
+		<value description="The collected records have apparently incorrect values due to inconsistent data coding">CodingError</value>
+
+	</attribute>
+</dictionary>

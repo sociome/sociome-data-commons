@@ -1,9 +1,18 @@
+'''views.py defines the http services provided by the sociome data commons
+'''
+
 from django.shortcuts import render
 from fileserver.models import *
+from fileserver.metadata import *
 
 # Create your views here.
 def index(request, new_dataset=False):
     return render(request, 'index.html', {'datasets': Dataset.objects.all()})
+
+
+def dictionary(request):
+    str = do_html('../metadata')
+    return render(request, 'dictionary.html', {'metadata': str})
 
 
 def upload(request):

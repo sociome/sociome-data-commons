@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<core description="This xml strucure contains the main pieces of information to document in a dataset">
+		<dataset description="Documentation related to dataset type, function, and interpretation.">
+		  <attribute description="A classification of original into broad categories of mechanisms. e.g., neighborhood economic activity v.s. envioronmental readings." compileType="dictionary">DataCategory</attribute>
+
+		  <attribute description="A classification of original data format which has implications on how the data can be stored, processed, and interpreted. In essence, it defines the main population unit of interest for this data" compileType="dictionary">DataType</attribute>
+
+		  <attribute description="Any entity that can be spatially defined as a geographic area, with either natural (physical) or administrative boundaries." compileType="dictionary">GeographicUnit</attribute>
+
+		  <attribute description="Any period of time: year, week, month, day, or bimonthly or quarterly periods, etc." compileType="dictionary">TimeUnit</attribute>
+
+		  <attribute description="The name of the original organization that collected the data. The data may have been subsequently processed, but this captures the original data source." compileType="string">CollectingOrganization</attribute>
+
+		  <attribute description="An internal unique name that we will refer to this data asset." compileType="string" integrity="unique">Name</attribute>
+
+		  <attribute description="A link to a computational notebook that converts the source data into the final format. This includes cleaning, reformatting, and aggregating." compileType="url">ProcessingCode</attribute>
+
+		  <attribute description="A description of any stipulations of how this data can be used" compileType="string" integrity="unique">TermsOfUse</attribute>
+
+		  <attribute description="The date at which the artifact was accessed" compileType="date">WhenAccessed</attribute>
+
+		  <attribute description="The organization that processed the data into its current form." compileType="string">ProcessingOrganization</attribute>
+
+		</dataset>
+
+		<quality description="Documentation related to data quality.">
+		  <attribute description="An internal unique name that we will refer to this data asset. All quality records are linked to a particular dataset. " compileType="string" integrity="foreign">ReferringDataset</attribute>
+
+		  <attribute description="A description of any incompleteness in this dataset." compileType="dictionary">Missingness</attribute>
+
+		  <attribute description="A description of any incorrect values in this dataset." compileType="dictionary">Incorrectness</attribute>
+
+		</quality>
+
+
+		<notebook description="Documentation of Jupyter notebook assets.">
+		  <attribute description="All notebook records are linked to a set of datasets that they proces." compileType="string" integrity="foreign" cardinality="many">InputDatasets</attribute>
+
+		  <attribute description="All notebook records are linked to a set of output datasets that they proces." compileType="string" integrity="foreign" cardinality="many">OutputDatasets</attribute>
+
+		  <attribute description="A simple description of the purpose of the notebook." compileType="string">SimpleNotebookPurpose</attribute>
+
+		</notebook>
+
+	</core>
