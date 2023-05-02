@@ -5,6 +5,7 @@ from fileserver.models import *
 def index(request, new_dataset=False):
     return render(request, 'index.html', {'datasets': Dataset.objects.all()})
 
+
 def upload(request):
 
     if request.method == 'GET':
