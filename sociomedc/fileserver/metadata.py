@@ -26,14 +26,16 @@ def do_html(path):
     for element, level in depth_iter(e.getroot()):
 
         name = str(element.text).strip() + ' ' + data_documentation_enum[level]
+        name = name.strip()
 
         if level <= 2:
             continue
 
         header = '<h'+str(level*2)+'>' + ' ' + str(name) + '</h'+str(level*2)+'>'
+        anchor = ('<a id="%s">' % name) + header + '</a>'
 
         lines.append('<div class="content">')
-        lines.append(header)
+        lines.append(anchor)
         lines.append(element.attrib['description'])
 
         if str(element.tag) == 'attribute':
@@ -88,15 +90,16 @@ def do_form(path):
             reference_file = element.attrib['compileType']
 
             if reference_file in data_type_enum:
-                lines.append("<input type='text' name='%s'>" % name)
+                lines.append("<input type='text' name='metadata_%s'>" % name)
             else:
-                lines.append('<select id="%sinp" name="%s">' % (name, name))
+                lines.append('<select id="%sinp" name="metadata_%s">' % (name, name))
 
                 ref_e = ET.parse(path + '/' + reference_file + '.xml')
 
                 for ref_element, ref_level in depth_iter(ref_e.getroot()):
 
                     if ref_element.attrib.get('name', '') == name.strip():
+                        lines.append('<option value="None">None</option>')
                         for child in (ref_element):
                             lines.append('<option value="%s">%s</option>' % (child.text, child.text))
 

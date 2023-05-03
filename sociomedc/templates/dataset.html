@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="content is-fluid" style="margin: 10px;">
 <h2>{{dataset.name}}</h2>
 <p><strong>Description: </strong> {{dataset.desc}}</p>
 
-<p><strong>Load As Pandas DataFrame</strong></p>
+<p><strong>Use This Dataset: </strong></p>
 
 <pre>
 <code>
@@ -12,4 +13,26 @@ import pandas as pd
 df = pd.read_json('http://{{clientip}}/json/{{dataset.uuid}}')
 </code>
 </pre>
+</div>
+
+<h2>Metadata</h2>
+<table class="table">
+    <thead>
+      <tr>
+          <th>Metadata Propery</th>
+          <th>Value</th>
+          <th>Description</th>
+      </tr>
+      
+    </thead>
+{% for m in metadata %}
+        <tr>
+          <td>{{m.key}}</td>
+          <td>{{m.value}}</td>
+          <td><a href="/dictionary#{{m.key}}">Link</a></td>
+        </tr>
+{% endfor %}
+</table>
+
+
 {% endblock %}

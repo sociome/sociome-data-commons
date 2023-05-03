@@ -19,3 +19,9 @@ class Dataset(models.Model):
     def save(self, *args, **kwargs):
         self.uuid = uuid.uuid4()
         super(Dataset, self).save(*args, **kwargs)
+
+
+class Metadata(models.Model):
+    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
+    key = models.CharField(max_length=1024)
+    value = models.CharField(max_length=1024)

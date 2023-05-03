@@ -30,6 +30,13 @@ def upload(request):
         new_dataset = Dataset(file=file, name=name,desc=desc)
         new_dataset.save()
 
+        for key,value in request.POST.items():
+
+            if 'metadata' in key:
+                key = key.split('_')[1]
+                m = Metadata(dataset=new_dataset, key=key, value=value)
+                m.save()
+
         return index(request, True)
 
 
@@ -37,7 +44,9 @@ def dataset(request):
     if request.method == 'GET':
         uuid = request.GET.get('id')
         dataset = Dataset.objects.filter(uuid=uuid)
-        client_ip = str(request.META['REMOTE_ADDR']) 
+        client_ip = str(request.META['REMOTE_ADDR'])
+
+        metadata = Metadata.objects.filter(dataset = dataset[0]) 
         #print(client_ip)
-        return render(request, 'dataset.html', {'dataset': dataset[0], 'clientip': client_ip})
+        return render(request, 'dataset.html', {'dataset': dataset[0], 'clientip': client_ip, 'metadata': metadata})
 
