@@ -27,9 +27,12 @@ def do_html(path):
 
         name = str(element.text).strip() + ' ' + data_documentation_enum[level]
 
-        header = '<h'+str(level*2)+'>' + ' ' + str(element.tag) + ': ' + str(name) + '</h'+str(level*2)+'>'
+        if level <= 2:
+            continue
 
-        lines.append('<div class="content" style="padding-left: %spx;">' % (str(15*(level-1))))
+        header = '<h'+str(level*2)+'>' + ' ' + str(name) + '</h'+str(level*2)+'>'
+
+        lines.append('<div class="content">')
         lines.append(header)
         lines.append(element.attrib['description'])
 
@@ -37,24 +40,28 @@ def do_html(path):
             reference_file = element.attrib['compileType']
 
             if element.attrib.get('cardinality', '') == 'many':
-                lines.append("<p>This attribute can have a set of values.</p>")
+                lines.append("This attribute can have a set of values.")
 
             if reference_file in data_type_enum:
-                lines.append("<p>This attribute is a "+ reference_file +" field.</p>")
+                lines.append("This attribute is a "+ reference_file +" field.")
                 lines.append('</div>')
                 continue
 
-            lines.append("<p>This attribute is populated with the following values:</p>")
+            lines.append("This attribute is populated with the following values:")
 
             ref_e = ET.parse(path + '/' + reference_file + '.xml')
 
             for ref_element, ref_level in depth_iter(ref_e.getroot()):
 
+                lines.append("<ul style=\"font-size: 10px;\">")
                 if ref_element.attrib.get('name', '') == name.strip():
                     for child in (ref_element):
-                        lines.append('<p>-' + '<b>'+child.text+"</b>: " + child.attrib.get('description',"") + "</p>")
+                        lines.append('<li>' + '<b>'+child.text+"</b>: " + child.attrib.get('description',"") + "</li>")
+                lines.append("</ul>")
 
+        lines.append('<hr>')
         lines.append('</div>')
+        
 
     return '\n'.join(lines)
 
