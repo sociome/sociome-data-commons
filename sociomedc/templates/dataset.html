@@ -8,9 +8,9 @@
 <p><strong>Use This Dataset: </strong></p>
 
 <pre>
-<code>
-import pandas as pd
-df = pd.read_json('http://{{clientip}}/json/{{dataset.uuid}}')
+<code style="font-size:12px;">
+from sociomepy.data import *                                                
+df = sociome('{{clientip}}download?id={{dataset.uuid}}')
 </code>
 </pre>
 </div>

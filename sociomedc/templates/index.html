@@ -8,7 +8,14 @@
 <h4>Access The Sociome Datasets</h4>
 The datasets below contain social, environment, and clinical factors relevant to patient outcomes.
 
-<p><br></p>
+<p>
+<form method="post">
+{% csrf_token %}
+<label for="name">Search for a dataset:</label>
+<input type="text" id="search" name="search"> <input type="submit">
+</form>
+</p>
+
 </div>
 
     <table class="table">
