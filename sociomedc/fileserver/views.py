@@ -17,9 +17,11 @@ def dictionary(request):
 
 def upload(request):
 
+    metadata = do_form('../metadata')
+
     if request.method == 'GET':
-        str = do_form('../metadata')
-        return render(request, 'upload.html', {'metadata': str})
+        return render(request, 'upload.html', {'metadata': metadata, 'error': True})
+
 
     if request.method == 'POST':
 
@@ -27,8 +29,16 @@ def upload(request):
         desc = request.POST.get('desc')
         file = request.FILES.get('filename')
 
+
+        try:
+            validateUpload(name, desc)
+        except ValueError as e:
+            return render(request, 'upload.html', {'metadata': metadata, 'error': True, 'message': str(e)})
+
+
         new_dataset = Dataset(file=file, name=name,desc=desc)
         new_dataset.save()
+
 
         for key,value in request.POST.items():
 
@@ -47,6 +57,5 @@ def dataset(request):
         client_ip = str(request.META['REMOTE_ADDR'])
 
         metadata = Metadata.objects.filter(dataset = dataset[0]) 
-        #print(client_ip)
         return render(request, 'dataset.html', {'dataset': dataset[0], 'clientip': client_ip, 'metadata': metadata})
 

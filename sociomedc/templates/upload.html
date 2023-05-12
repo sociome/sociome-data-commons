@@ -4,6 +4,19 @@
 <form method="post">
   {% csrf_token %}
 
+
+{% if error %}
+<p><br></p>
+ <article class="message is-warning" style="font-size: 12px;">
+  <div class="message-header">
+    <p>Error</p>
+  </div>
+  <div class="message-body">
+    {{message}}
+  </div>
+</article>
+{% endif %}
+
   <h2>Add a new dataset</h2>
   <label for="name">Dataset Name:</label><br>
   <input type="text" id="name" name="name"><br>
