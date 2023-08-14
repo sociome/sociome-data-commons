@@ -6,14 +6,62 @@
 <p><strong>Description: </strong> {{dataset.desc}}</p>
 
 <p><strong>Use This Dataset: </strong></p>
-
+{% if extension_code == 1%}
 <pre>
-<code style="font-size:12px;">
-from sociomepy.data import *                                                
-df = sociome('{{clientip}}download?id={{dataset.uuid}}')
-</code>
+  <code>
+  import pandas as pd
+  import requests
+  try:
+    api_url = f'http://{{clientip}}:{{port_number}}/api/dataset/{{dataset.uuid}}'
+    response = requests.get(api_url)
+    response.raise_for_status()
+    data = response.json()
+    df = pd.DataFrame(data)
+  except Exception as e:
+    print(f"Error reading data: {e}")
+  </code>
 </pre>
+{% elif extension_code == 2%}
+<pre>
+  <code>
+  import pandas as pd
+  import requests
+  from zipfile import ZipFile
+  import zipfile
+  import io
+  from sociomepy.data import SociomeDataFrame
+  import geopandas as gpd
+  try:
+    api_url = f'http://{{clientip}}:{{port_number}}/api/dataset/{{dataset.uuid}}'
+    response = requests.get(api_url)
+    response.raise_for_status()
+    with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
+      zip_file.extractall()
+      gdf = gpd.read_file('{{file_name}}')
+  except Exception as e:
+    print(f"Error reading data: {e}")
+  </code>
+</pre>
+{% endif %}
 </div>
+<a href="{{ dataset.file.url }}" class="button is-primary" download="{{ dataset.file.name }}">Download Dataset</a>
+
+{% if dataset.data_dict_exists %}
+<h2>Data Dictionary</h2>
+{% if dict_file_extension in pdf_file_extensions %}
+  <!-- Render the PDF preview -->
+  <iframe src="{{ dataset.data_dict.url }}" width="100%" height="500px"></iframe>
+{% elif dict_file_extension in table_file_extensions %}
+  <div class="table-container" style="height: 400px; overflow: auto; fontsize: 10px">
+    {{ table_html|safe }}
+  </div>
+{% else %}
+  <!-- For unsupported file types, display a default message -->
+  <p>No preview available for this file type.</p>
+{% endif %}
+<a href="{{ dataset.data_dict.url }}" class="button is-primary" download="{{ dataset.data_dict.name }}">Download Data Dictionary</a>
+{% endif %}
+
 
 <h2>Metadata</h2>
 <table class="table">
@@ -23,7 +71,7 @@ df = sociome('{{clientip}}download?id={{dataset.uuid}}')
           <th>Value</th>
           <th>Description</th>
       </tr>
-      
+
     </thead>
 {% for m in metadata %}
         <tr>
