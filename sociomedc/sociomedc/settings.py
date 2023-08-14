@@ -71,6 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sociomedc.wsgi.application'
 
+SERVER_URL = 'http://localhost:8000/'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

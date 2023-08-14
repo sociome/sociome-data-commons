@@ -11,9 +11,17 @@
 
 		  <attribute description="The name of the original organization that collected the data. The data may have been subsequently processed, but this captures the original data source." compileType="string">CollectingOrganization</attribute>
 
+		  <attribute description="Description of how the data was collected." compileType="string">CollectingMethodology</attribute>
+
+		  <attribute description="Area in which the data spans. (eg. United States, Chicago)" compileType="string">AreaOfCoverage</attribute>
+
+		  <attribute description="An internal unique name that we will refer to this data asset." compileType="string" integrity="unique">Name</attribute>
+
 		  <attribute description="A link to a computational notebook that converts the source data into the final format. This includes cleaning, reformatting, and aggregating." compileType="url">ProcessingCode</attribute>
 
 		  <attribute description="A description of any stipulations of how this data can be used" compileType="string" integrity="unique">TermsOfUse</attribute>
+
+		  <attribute description="The date at which the data was last updated." compileType="date">LastUpdated</attribute>
 
 		  <attribute description="The date at which the artifact was accessed" compileType="date">WhenAccessed</attribute>
 

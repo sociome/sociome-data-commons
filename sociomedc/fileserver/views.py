@@ -11,6 +11,9 @@ from django.shortcuts import render
 #file imports
 from fileserver.models import *
 from fileserver.metadata import *
+from sociomedc.settings import SERVER_URL
+
+import os
 
 def index(request):
     '''index renders the main about page
@@ -89,8 +92,7 @@ def dataset(request):
     if request.method == 'GET':
         uuid = request.GET.get('id')
         dataset = Dataset.objects.filter(uuid=uuid)
-        client_ip = str(request.META['REMOTE_ADDR'])
-        port_number = str(request.META['SERVER_PORT'])
+        client_ip = SERVER_URL
 
         data_dict_exists = dataset[0].data_dict_exists
 
@@ -126,7 +128,7 @@ def dataset(request):
         metadata = Metadata.objects.filter(dataset=dataset[0])
         return render(request, 'dataset.html',
                       {'dataset': dataset[0], 'file_name': file_name, 'extension_code': extension_code,
-                       'port_number': port_number, 'clientip': client_ip, 'table_html': table_html,
+                       'clientip': client_ip, 'table_html': table_html,
                        'metadata': metadata, 'pdf_file_extensions': pdf_file_extensions,
                        'table_file_extensions': table_file_extensions, 'dict_file_extension': dict_file_extension})
 
