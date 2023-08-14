@@ -15,6 +15,8 @@ from sociomedc.settings import SERVER_URL
 
 import os
 
+import pandas as pd
+
 def index(request):
     '''index renders the main about page
     '''

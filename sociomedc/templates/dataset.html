@@ -11,35 +11,27 @@
   <code>
   import pandas as pd
   import requests
-  try:
-    api_url = f'http://{{clientip}}:{{port_number}}/api/dataset/{{dataset.uuid}}'
-    response = requests.get(api_url)
-    response.raise_for_status()
-    data = response.json()
-    df = pd.DataFrame(data)
-  except Exception as e:
-    print(f"Error reading data: {e}")
+  api_url = f'http://{{clientip}}/api/dataset/{{dataset.uuid}}'
+  response = requests.get(api_url)
+  response.raise_for_status()
+  data = response.json()
+  df = pd.DataFrame(data)
   </code>
 </pre>
 {% elif extension_code == 2%}
 <pre>
   <code>
-  import pandas as pd
-  import requests
-  from zipfile import ZipFile
   import zipfile
+  import requests
   import io
-  from sociomepy.data import SociomeDataFrame
   import geopandas as gpd
-  try:
-    api_url = f'http://{{clientip}}:{{port_number}}/api/dataset/{{dataset.uuid}}'
-    response = requests.get(api_url)
-    response.raise_for_status()
-    with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
-      zip_file.extractall()
-      gdf = gpd.read_file('{{file_name}}')
-  except Exception as e:
-    print(f"Error reading data: {e}")
+
+  api_url = f'http://{{clientip}}/api/dataset/{{dataset.uuid}}'
+  response = requests.get(api_url)
+  response.raise_for_status()
+  with zipfile.ZipFile(io.BytesIO(response.content), 'r') as zip_file:
+     zip_file.extractall()
+     gdf = gpd.read_file('{{file_name}}')
   </code>
 </pre>
 {% endif %}
