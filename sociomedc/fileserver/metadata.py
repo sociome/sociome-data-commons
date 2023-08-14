@@ -56,7 +56,7 @@ def do_html(path):
 
             for ref_element, ref_level in depth_iter(ref_e.getroot()):
 
-                lines.append("<ul style=\"font-size: 10px;\">")
+                lines.append("<ul style=\"font-size: 12px;\">")
                 if ref_element.attrib.get('name', '') == name.strip():
                     for child in (ref_element):
                         lines.append('<li>' + '<b>'+child.text+"</b>: " + child.attrib.get('description',"") + "</li>")

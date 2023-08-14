@@ -5,7 +5,35 @@
 <div class="content is-fluid">
 <p><br></p>
 
-<h2>Sociome Data Dictionary</h2>
+<h2>Metdata Standard v0.1</h2>
+The Sociome Data Commons (SDC) establishes standards for dataset quality, dataset inclusions, metadata annotation, and data access. This document defines the basic standards for datasets in the commons.
+
+<h2>Principles</h2>
+The SDC is organized around the FAIR principles: Findability, Accessibility, Interoperability, and Reuse of digital assets. It establishes a documentation standard for identifying relevant data as well as a programming interface to accesss data.
+
+TODO more describe the programming interface
+
+<h2>Access to the Data</h2>
+
+TODO describe how we will grant access to the data
+
+<h2>Dataset Properties</h2>
+
+<h3>Dataset Quality</h3>
+Data quality scores are essential for a data repository as they serve as critical indicators of the reliability and usability of the stored information. These scores provide a quantifiable measure of the overall quality of the data, helping users and stakeholders assess the trustworthiness of the repository's contents. By evaluating various aspects such as accuracy, completeness, consistency, and timeliness, data quality scores assist in identifying potential issues, errors, or inconsistencies in the dataset. This information empowers data consumers to make informed decisions and select appropriate data for analysis, research, or decision-making purposes. Additionally, data quality scores enable data custodians to prioritize data cleansing and enhancement efforts, ensuring the repository's content remains up-to-date and valuable. Ultimately, by incorporating data quality scores, a data repository can enhance its overall credibility, encourage data sharing and collaboration, and foster the development of reliable insights and knowledge based on trustworthy data. 
+<br><br>
+When developing such a metric, it is important to accurately taxonomize the types of errors manifest in such data. 
+
+<p><br></p>
+<strong>Syntactic Error</strong>. A syntactic error is a data value that does not match the expected format of its data attribute. For example, a particular address might be formatted differently than the others. Or, a value might be outright missing and represented by some sentinel symbol indicating its missingness. Syntactic errors are characterized by their effects on downstream analysis code -- the errors need special handling since they do not match the expected format. Syntactic errors are "self-evident" in the sense that no outside information is needed to determine their presence. 
+<br><br>
+<strong>Semantic Error</strong>. A semantic error is a factual inaccuracy or implausibility in the data. For example, a traffic dataset may indicate a speed limit on a particular road of 29 miles per hour. While syntactically correct (the speed is properly a number), it is semantically incorrect (the 29 mile per hour speed limit is likely wrong). In a sense, semantic errors are more insidious that syntactic errors as they might cause "silent" failures, where the analysis code works but the conclusions are biased. Semantic errors require outside knowledge to identify and rectify.
+
+<br><br>
+<strong>Systemic Error</strong>. A systemic error is when the choice of data representation or measurement methodology is systematically biased or incomplete. While almost all datasets are biased in one way or another, we define a systemic error as a dataset that ignores "a significant confounding variable". In such cases, it would be much better to store and measure the confounding variable itself. As a principle, the SDC tries to store the most direct measurement of exposures. 
+
+<h3>Datasset Documentation</h3>
+
 Below, we describe how the metadata for each of these datasets is organized.
 
 <p><br></p>
