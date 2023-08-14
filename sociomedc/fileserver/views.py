@@ -12,17 +12,25 @@ from django.shortcuts import render
 from fileserver.models import *
 from fileserver.metadata import *
 
-def index(request, new_dataset=False):
-    '''index renders the main landing page of the sociome data commons
+def index(request):
+    '''index renders the main about page
+    '''
+
+    return render(request, 'index.html', {})
+
+
+
+def dataset_index(request, new_dataset=False):
+    '''dataset_index renders the main landing page of the sociome data commons
     '''
 
     if request.method == 'GET':
-        return render(request, 'index.html', {'datasets': Dataset.objects.all()})
+        return render(request, 'list.html', {'datasets': Dataset.objects.all()})
 
     if request.method == 'POST':
         search = request.POST.get('search', '')
 
-        return render(request, 'index.html', {'datasets': findDatasets(search)})
+        return render(request, 'list.html', {'datasets': findDatasets(search)})
 
 
 def upload(request):
@@ -59,13 +67,14 @@ def upload(request):
         except ValueError as e:
             return render(request, 'upload.html', {'metadata': metadata, 'error': True, 'message': str(e)})
 
-
-        return index(request, True)
-
+        return dataset_index(request, True)
 
 def dictionary(request):
+    '''Defines the data dictionary for the sociome data commons
+    '''
     str = do_html('../metadata')
     return render(request, 'dictionary.html', {'metadata': str})
+
 
 def dataset(request):
     if request.method == 'GET':
@@ -75,7 +84,6 @@ def dataset(request):
 
         metadata = Metadata.objects.filter(dataset = dataset[0]) 
         return render(request, 'dataset.html', {'dataset': dataset[0], 'clientip': client_ip, 'metadata': metadata})
-
 
 def download(request):
     if request.method == 'GET':

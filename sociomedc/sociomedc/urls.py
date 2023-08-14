@@ -21,6 +21,7 @@ from fileserver.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),  # new
+    path('list', dataset_index),
     path('', index),
     path('upload', upload),
     path('dataset', dataset),

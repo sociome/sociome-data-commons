@@ -5,34 +5,8 @@
 <div class="content is-fluid">
 <p><br></p>
 
-<h4>Access The Sociome Datasets</h4>
-The datasets below contain social, environment, and clinical factors relevant to patient outcomes.
+<h4>About</h4>
+The Sociome Data Commons provides a repository of datasets about the social, environmental, and economic context of a patient's health. This data can help researchers and practioners identify key non-clinical factors that might affect treatment plans. The project is a collaboration between the Institue of Translational Medicine (ITM) and the Data Science Institue.
 
-<p>
-<form method="post">
-{% csrf_token %}
-<label for="name">Search for a dataset:</label>
-<input type="text" id="search" name="search"> <input type="submit">
-</form>
-</p>
 
-</div>
-
-    <table class="table">
-    <thead>
-      <tr>
-          <th>Dataset Name</th>
-          <th>Description</th>
-          <th>Download</th>
-      </tr>
-      
-    </thead>
-    {% for dataset in datasets %}
-        <tr>
-          <td>{{dataset.name}}</td>
-          <td>{{dataset.desc}}</td>
-          <td><a href="/dataset?id={{dataset.uuid}}">Link</a></td>
-        </tr>
-    {% endfor %}
-    </table>
 {% endblock %}

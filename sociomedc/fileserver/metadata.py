@@ -47,6 +47,7 @@ def do_html(path):
             if reference_file in data_type_enum:
                 lines.append("This attribute is a "+ reference_file +" field.")
                 lines.append('</div>')
+                lines.append('<hr>')
                 continue
 
             lines.append("This attribute is populated with the following values:")
