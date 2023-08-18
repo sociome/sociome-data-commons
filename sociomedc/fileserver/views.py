@@ -116,20 +116,22 @@ def dataset(request):
         else:
             table_html = None
 
-        data_file_extension = dataset[0].file.name.split('.')[-1].lower()
-        if data_file_extension == 'csv':
-            extension_code = 1
-            file_name = None
-        elif data_file_extension == 'zip':
-            extension_code = 2
-            file_name = os.path.basename(dataset[0].file.name).split(".")[0]
-        else:
-            extension_code = 0
-            file_name = None
+        # data_file_extension = dataset[0].file.name.split('.')[-1].lower()
+        # if data_file_extension == 'csv':
+        #     extension_code = 1
+        #     file_name = None
+        # elif data_file_extension == 'zip':
+        #     extension_code = 2
+        #     file_name = os.path.basename(dataset[0].file.name).split(".")[0]
+        # else:
+        #     extension_code = 0
+        #     file_name = None
 
         metadata = Metadata.objects.filter(dataset=dataset[0])
+        
+        # 0.0.1_hanging_on_chicago_assessments took out: 'file_name': file_name, 'extension_code': extension_code,
         return render(request, 'dataset.html',
-                      {'dataset': dataset[0], 'file_name': file_name, 'extension_code': extension_code,
+                      {'dataset': dataset[0], 
                        'clientip': client_ip, 'table_html': table_html,
                        'metadata': metadata, 'pdf_file_extensions': pdf_file_extensions,
                        'table_file_extensions': table_file_extensions, 'dict_file_extension': dict_file_extension})
