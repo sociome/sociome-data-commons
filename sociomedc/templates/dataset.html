@@ -5,7 +5,7 @@
 <h2>{{dataset.name}}</h2>
 <p><strong>Description: </strong> {{dataset.desc}}</p>
 
-<p><strong>Use This Dataset: </strong></p>
+{% comment %} <p><strong>Use This Dataset: </strong></p>
 {% if extension_code == 1%}
 <pre>
   <code>
@@ -34,7 +34,10 @@
      gdf = gpd.read_file('{{file_name}}')
   </code>
 </pre>
-{% endif %}
+{% endif %} {% endcomment %}
+
+
+
 </div>
 <a href="{{ dataset.file.url }}" class="button is-primary" download="{{ dataset.file.name }}">Download Dataset</a>
 
