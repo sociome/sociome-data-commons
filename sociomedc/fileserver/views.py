@@ -11,7 +11,7 @@ from django.shortcuts import render
 #file imports
 from fileserver.models import *
 from fileserver.metadata import *
-from sociomedc.settings import SERVER_URL
+from sociomedc.settings import SERVER_URL, SERVER_ROOT
 
 import os
 
@@ -45,7 +45,7 @@ def upload(request):
     :return:
     '''
 
-    metadata = do_form('../metadata')
+    metadata = do_form(SERVER_ROOT + '/metadata')
 
     if request.method == 'GET':
         return render(request, 'upload.html', {'metadata': metadata, 'error': False})
@@ -86,7 +86,7 @@ def upload(request):
 def dictionary(request):
     '''Defines the data dictionary for the sociome data commons
     '''
-    str = do_html('../metadata')
+    str = do_html(SERVER_ROOT + '/metadata')
     return render(request, 'dictionary.html', {'metadata': str})
 
 
