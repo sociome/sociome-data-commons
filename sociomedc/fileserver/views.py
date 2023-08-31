@@ -107,7 +107,7 @@ def dataset(request):
         pdf_file_extensions = ['pdf']
         table_file_extensions = ['csv', 'xlsx']
 
-        if dict_file_extension in table_file_extensions:
+        if False:#dict_file_extension in table_file_extensions:
             if dict_file_extension == 'xlsx':
                 df = pd.read_excel(dataset[0].data_dict.path)
                 table_html = df.to_html(classes='table table-bordered table-hover')
