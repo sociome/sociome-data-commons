@@ -56,24 +56,11 @@ def upload(request):
 
         name = request.POST.get('name')
         desc = request.POST.get('desc')
-        file = request.FILES.get('filename')
-        if len(request.FILES) > 1:
-            data_dict = request.FILES.get('data_dict')
-            data_dict_exists = True
-        else:
-            data_dict_exists = False
-            data_dict = None
+        file = request.POST.get('filename')
+        data_dict = request.POST.get('datadict')
 
-
-        try:
-            validateUpload(name, desc)
-        except ValueError as e:
-            return render(request, 'upload.html', {'metadata': metadata, 'error': True, 'message': str(e)})
-
-
-        new_dataset = Dataset(file=file, data_dict=data_dict, data_dict_exists=data_dict_exists, name=name,desc=desc)
+        new_dataset = Dataset(file=file, data_dict=data_dict, name=name,desc=desc)
         new_dataset.save()
-
 
         for key,value in request.POST.items():
 
@@ -97,43 +84,10 @@ def dataset(request):
         dataset = Dataset.objects.filter(uuid=uuid)
         client_ip = SERVER_URL
 
-        data_dict_exists = dataset[0].data_dict_exists
-
-        if data_dict_exists:
-            dict_file_extension = dataset[0].data_dict.name.split('.')[-1].lower()
-        else:
-            dict_file_extension = None
-
-        pdf_file_extensions = ['pdf']
-        table_file_extensions = ['csv', 'xlsx']
-
-        if dict_file_extension in table_file_extensions:
-            if dict_file_extension == 'xlsx':
-                df = pd.read_excel(dataset[0].data_dict.path)
-                table_html = df.to_html(classes='table table-bordered table-hover')
-            else:
-                df = pd.read_csv(dataset[0].data_dict.path)
-                table_html = df.to_html(classes='table table-bordered table-hover')
-        else:
-            table_html = None
-
-        data_file_extension = dataset[0].file.name.split('.')[-1].lower()
-        if data_file_extension == 'csv':
-            extension_code = 1
-            file_name = None
-        elif data_file_extension == 'zip':
-            extension_code = 2
-            file_name = os.path.basename(dataset[0].file.name).split(".")[0]
-        else:
-            extension_code = 0
-            file_name = None
-
         metadata = Metadata.objects.filter(dataset=dataset[0])
         return render(request, 'dataset.html',
-                      {'dataset': dataset[0], 'file_name': file_name, 'extension_code': extension_code,
-                       'clientip': client_ip, 'table_html': table_html,
-                       'metadata': metadata, 'pdf_file_extensions': pdf_file_extensions,
-                       'table_file_extensions': table_file_extensions, 'dict_file_extension': dict_file_extension})
+                      {'dataset': dataset[0], 'download': dataset[0].file,
+                       'metadata': metadata})
 
 
 def dataset_api(request, dataset_id):
