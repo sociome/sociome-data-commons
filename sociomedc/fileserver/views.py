@@ -14,6 +14,7 @@ from fileserver.metadata import *
 from sociomedc.settings import SERVER_URL, SERVER_ROOT
 
 import os
+from io import StringIO
 
 import pandas as pd
 
@@ -51,7 +52,7 @@ def upload(request):
     #can only modify db locally forces us to version 
     #control catalog
     if not 'localhost' in SERVER_URL:
-        return render(request, 'index.html', {})
+        return render(request, 'upload.html', {'uuid': uuid, 'error': True})
 
     metadata = do_form(SERVER_ROOT + '/metadata')
 
@@ -89,7 +90,7 @@ def notebook(request):
     #can only modify db locally forces us to version 
     #control catalog
     if not 'localhost' in SERVER_URL:
-        return render(request, 'index.html', {})
+        return render(request, 'notebook.html', {'uuid': uuid, 'error': True})
 
     if request.method == 'GET':
         uuid = request.GET.get('uuid')
@@ -108,6 +109,38 @@ def notebook(request):
         return dataset_index(request, True)
 
 
+def columns(request):
+    '''
+    Upload pushes a dataset into the repository
+    :param request: HTTPRequest
+    :return:
+    '''
+
+    #can only modify db locally forces us to version 
+    #control catalog
+    if not 'localhost' in SERVER_URL:
+        return render(request, 'columns.html', {'uuid': uuid, 'error': True})
+
+    if request.method == 'GET':
+        uuid = request.GET.get('uuid')
+        return render(request, 'columns.html', {'uuid': uuid, 'error': False})
+
+    if request.method == 'POST':
+
+        columns = request.POST.get('desc')
+        id = request.POST.get('id')
+        url = request.POST.get('url')
+        dataset = Dataset.objects.filter(uuid=id)[0]
+
+        m = Metadata(dataset=dataset, key='DataDictionaryContent', value=columns)
+        m.save()
+
+        m = Metadata(dataset=dataset, key='DataDictionaryURL', value=url)
+        m.save()
+
+        return dataset_index(request, True)
+
+
 def dictionary(request):
     '''Defines the data dictionary for the sociome data commons
     '''
@@ -121,13 +154,28 @@ def dataset(request):
         dataset = Dataset.objects.filter(uuid=uuid)
         client_ip = SERVER_URL
 
-        metadata = Metadata.objects.filter(dataset=dataset[0])
+        #get all except data dict
+        metadata = [m for m in Metadata.objects.filter(dataset=dataset[0]) if not ('DataDictionary' in m.key)]
+
+        data_dict = [m for m in Metadata.objects.filter(dataset=dataset[0]) if ('DataDictionary' in m.key)]
+        data_dict_html = ''
+        
+        if len(data_dict) > 0:
+            data_dict_content =  Metadata.objects.filter(dataset=dataset[0], key='DataDictionaryContent')[0].value 
+            csvStringIO = StringIO(data_dict_content)
+            df = pd.read_csv(csvStringIO, header=None) 
+            df = df.rename(columns={0: 'Column Name', 1: 'Description'})
+            data_dict_html = df.to_html(justify='left')
+            print(df.to_html())     
 
         notebook = [n.html[2:].replace("\\/", "/").encode().decode('unicode_escape').replace('Â','') for n in Notebook.objects.filter(dataset=dataset[0])]
 
         return render(request, 'dataset.html',
                       {'dataset': dataset[0], 'download': dataset[0].file,
-                       'metadata': metadata, 'notebook': notebook})
+                       'metadata': metadata, 
+                       'has_data_dict': len(data_dict) > 0,
+                       'data_dict_html': data_dict_html,
+                       'notebook': notebook})
 
 
 def dataset_api(request, dataset_id):

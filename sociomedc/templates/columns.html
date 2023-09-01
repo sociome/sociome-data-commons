@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<p>Create a Data Dictionary</p>
+
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
@@ -17,22 +20,16 @@
 </article>
 {% endif %}
 
-  <h2>Add a new dataset</h2>
-  <label for="name">Dataset Name:</label><br>
-  <input type="text" id="name" name="name" size="100"><br>
-  <label for="desc">Short Dataset Description:</label><br>
+  <h2>For each column add a description:</h2>
+  <label for="desc">On each line write a (column, description):</label><br>
   <textarea id="desc" name="desc" rows="5" cols="100">
-  </textarea><br>
+  </textarea>
+  <input type="hidden" id="id" name="id" value="{{uuid}}">
+  <br>
 
-  <h2>Provide the S3 Links</h2>
-  <label for="name">Dataset URL:</label><br>
-  <input type="text" id="filename" name="filename" size="100"><br>
-  <label for="desc">Data Dictionary URL (optional):</label><br>
-  <input type="text" id="datadict" name="datadict" size="100"><br><br>
-
-  <h2>Add Metadata</h2>
-
-  {{metadata|safe}}
+  <h2>Provide a link to the source material</h2>
+  <label for="name">Data Dictionary URL:</label><br>
+  <input type="text" id="url" name="url" size="100"><br>
 
   <h2>Submit</h2>
 
