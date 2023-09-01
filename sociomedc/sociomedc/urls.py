@@ -24,6 +24,7 @@ urlpatterns = [
     path('list', dataset_index),
     path('', index),
     path('upload', upload),
+    path('notebook', notebook),
     path('dataset', dataset),
     path('dictionary', dictionary),
     path('download', download)

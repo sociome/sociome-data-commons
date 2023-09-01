@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <dictionary>
 	<attribute name="DataCategory">
+                <value description="Data which refer to discrete points (or other geometries) in space of buildings, assets, and addresses.">LocationData</value>
 		<value description="Data which refer to measurements of environmental contaminants/conditions such as air pollution, light, noise, and temperature.">EnvironmentalData</value>
 
 		<value description="Data which refer to commonly used demographic variables such as race/ethnicity, income, eductional level, and household make up.">DemographicData</value>
