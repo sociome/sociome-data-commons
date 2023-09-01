@@ -51,7 +51,7 @@ def upload(request):
     #can only modify db locally forces us to version 
     #control catalog
     if not 'localhost' in SERVER_URL:
-        render(request, 'index.html', {})
+        return render(request, 'index.html', {})
 
     metadata = do_form(SERVER_ROOT + '/metadata')
 
@@ -89,7 +89,7 @@ def notebook(request):
     #can only modify db locally forces us to version 
     #control catalog
     if not 'localhost' in SERVER_URL:
-        render(request, 'index.html', {})
+        return render(request, 'index.html', {})
 
     if request.method == 'GET':
         uuid = request.GET.get('uuid')
