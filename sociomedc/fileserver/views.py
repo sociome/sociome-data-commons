@@ -11,7 +11,7 @@ from django.shortcuts import render
 #file imports
 from fileserver.models import *
 from fileserver.metadata import *
-from sociomedc.settings import SERVER_URL
+from sociomedc.settings import SERVER_URL, SERVER_ROOT
 
 import os
 
@@ -35,10 +35,12 @@ def dataset_index(request, new_dataset=False):
     if request.method == 'POST':
         search = request.POST.get('search', '')
 
-        return render(request, 'list.html', {'datasets': findDatasets(search)})
+        if search == '':
+            return render(request, 'list.html', {'datasets': Dataset.objects.all()})
+        else:
+            return render(request, 'list.html', {'datasets': findDatasets(search)})
 
 
-#I think we need to fix this
 def upload(request):
     '''
     Upload pushes a dataset into the repository
@@ -46,7 +48,7 @@ def upload(request):
     :return:
     '''
 
-    metadata = do_form('../metadata')
+    metadata = do_form(SERVER_ROOT + '/metadata')
 
     if request.method == 'GET':
         return render(request, 'upload.html', {'metadata': metadata, 'error': False})
@@ -71,10 +73,35 @@ def upload(request):
 
         return dataset_index(request, True)
 
+
+def notebook(request):
+    '''
+    Upload pushes a dataset into the repository
+    :param request: HTTPRequest
+    :return:
+    '''
+
+    if request.method == 'GET':
+        uuid = request.GET.get('uuid')
+        return render(request, 'notebook.html', {'uuid': uuid, 'error': False})
+
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        id = request.POST.get('id')
+        file = request.FILES['file'].read()
+        dataset = Dataset.objects.filter(uuid=id)[0]
+
+        new_notebook = Notebook(dataset=dataset, name=name,html=file)
+        new_notebook.save()
+
+        return dataset_index(request, True)
+
+
 def dictionary(request):
     '''Defines the data dictionary for the sociome data commons
     '''
-    str = do_html('../metadata')
+    str = do_html(SERVER_ROOT + '/metadata')
     return render(request, 'dictionary.html', {'metadata': str})
 
 
@@ -85,9 +112,12 @@ def dataset(request):
         client_ip = SERVER_URL
 
         metadata = Metadata.objects.filter(dataset=dataset[0])
+
+        notebook = [n.html[2:].replace("\\/", "/").encode().decode('unicode_escape').replace('Â','') for n in Notebook.objects.filter(dataset=dataset[0])]
+
         return render(request, 'dataset.html',
                       {'dataset': dataset[0], 'download': dataset[0].file,
-                       'metadata': metadata})
+                       'metadata': metadata, 'notebook': notebook})
 
 
 def dataset_api(request, dataset_id):

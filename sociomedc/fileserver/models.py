@@ -21,17 +21,25 @@ class Dataset(models.Model):
         super(Dataset, self).save(*args, **kwargs)
 
 
-#validate
-def validateUpload(name, desc):
-    if len(name.split()) > 1:
-        raise ValueError("The dataset name must not contain any spaces, e.g., chicago_crime")
-    return None
+class Notebook(models.Model):
+    '''Defines a starter notebook for a dataset
+    '''
+    name = models.CharField(max_length=128)
+    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
+    html = models.TextField()
 
 
 class Metadata(models.Model):
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
     key = models.CharField(max_length=1024)
     value = models.CharField(max_length=1024)
+
+
+#validate
+def validateUpload(name, desc):
+    if len(name.split()) > 1:
+        raise ValueError("The dataset name must not contain any spaces, e.g., chicago_crime")
+    return None
 
 
 def get_power_set(s):

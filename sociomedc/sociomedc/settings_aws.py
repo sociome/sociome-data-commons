@@ -56,7 +56,7 @@ ROOT_URLCONF = 'sociomedc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['/var/www/data/sociome-data-commons/sociomedc/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,8 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sociomedc.wsgi.application'
 
-SERVER_URL = 'http://localhost:8000/'
-SERVER_ROOT = '../'
+SERVER_URL = 'http://3.145.170.33/'
+SERVER_ROOT = '/var/www/data/sociome-data-commons/'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

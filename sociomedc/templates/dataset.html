@@ -7,8 +7,10 @@
 
 <a href="{{download}}" class="button is-primary">Download Dataset</a>
 
+<p><br></p>
+
 <h2>Metadata</h2>
-<table class="table">
+<table class="table" style="font-size: 10px !important; max-width: 80%;">
     <thead>
       <tr>
           <th>Metadata Propery</th>
@@ -26,5 +28,18 @@
 {% endfor %}
 </table>
 
+<p><br></p>
+
+<h2>Examples</h2>
+
+<div style="max-width: 100%; border: 2px #4f4f4f solid;">
+{% for n in notebook %}
+{{n | safe}}
+{% endfor %}
+</div>
+
+<p><br></p>
+
+<a href="/notebook?uuid={{dataset.uuid}}" class="button is-link">Link to Another Notebook</a>
 
 {% endblock %}
