@@ -27,6 +27,8 @@
 
 		  <attribute description="The organization that processed the data into its current form." compileType="string">ProcessingOrganization</attribute>
 
+		  <attribute description="Website / link to data source." compileType="string">Weblink</attribute>
+
 		  <attribute description="A description of any incompleteness in this dataset." compileType="dictionary">Missingness</attribute>
 
 		  <attribute description="A description of any incorrect values in this dataset." compileType="dictionary">Incorrectness</attribute>
