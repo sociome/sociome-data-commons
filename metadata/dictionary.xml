@@ -41,6 +41,18 @@
 	</attribute>
 
 
+	<attribute name="CollectingMethodology">
+		<value description="Generalizable data based on a probability sample.">ProbabilitySurvey</value>
+
+		<value description="Direct measurements.">DirectMeasurements</value>
+
+		<value description="Modeled results.">Modeled</value>
+
+		<value description="Other or unknown.">Other</value>
+
+	</attribute>
+		
+
 	<attribute name="GeographicUnit">
 
 		<value description="Data that are not linked to a particular geographic unit, e.g., tied to the individual/household.">NoneUnit</value>
