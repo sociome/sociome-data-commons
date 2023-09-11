@@ -2,10 +2,13 @@
 <dictionary>
 	<attribute name="DataCategory">
                 <value description="Data which refer to discrete points (or other geometries) in space of buildings, assets, and addresses.">LocationData</value>
+		
 		<value description="Data which refer to measurements of environmental contaminants/conditions such as air pollution, light, noise, and temperature.">EnvironmentalData</value>
 
 		<value description="Data which refer to commonly used demographic variables such as race/ethnicity, income, eductional level, and household make up.">DemographicData</value>
 
+		<value description="Data which refers to health metrics.">HealthData</value>
+		
 		<value description="Data which refers to condition, values, or age of individual properties in a region.">PropertyData</value>
 
 		<value description="Data which refers to observations about crime, safety, and other related risk factors in a region.">SafetyData</value>
@@ -13,11 +16,17 @@
 		<value description="Data which refers to observations about proximity and access to certain neighborhood resources.">AccessData</value>
 
 		<value description="Data which refers to measurements of economic activity in a certain region.">EconomicActivityData</value>
+
+		<value description="Other type of data.">OtherDataCat</value>
 	</attribute>
 
 
 	<attribute name="DataType">
 		<value description="Data that are linked to an individual patient.">IndividualData</value>
+		
+		<value description="Data that are at the address level.">AddressData</value>
+
+		<value description="Data that are estimates on a geographic level.">AreaData</value>
 
 		<value description="Data that are linked to associations, institutions, agencies, businesses, political parties, schools, etc..">OrganizationData</value>
 
@@ -25,7 +34,9 @@
 
 		<value description="Data that are linked to any type of incident, occurrence, or activity. Events are linked to GeographicUnits">EventData</value>
 
-		<value description="Data that are linked to a some GeographicalUnit.">LocationData</value>
+		<value description="Data that are linked to a GeographicalUnit.">LocationData</value>
+
+		<value description="Other data type.">OtherDataType</value>
 
 	</attribute>
 
@@ -44,12 +55,16 @@
 
 		<value description="Data that are linked to zipcodes. A ZIP Code is a postal code used by the United States Postal Service (USPS).">ZipCodeUnit</value>
 
-		<value description="Data that are linked to some well-defined boundary of neighborhood but does not fall into one of the above categories.">OtherNeighborhoodUnit</value>
+		<value description="Data that does not fall into one of the above categories.">OtherNeighborhoodUnit</value>
 	</attribute>
 
 	<attribute name="TimeUnit">
 		
 		<value description="Observation is not tied to a particular time instant or period.">NoneUnit</value>
+
+		<value description="Capture on going processes with a sub-daily update cycle (e.g., hourly).">TimeUnit</value>
+
+		<value description="Capture on going processes with a daily update cycle.">DailyUnit</value>
 
 		<value description="Capture one-time, individual occurrences, with a limited, or short duration.">InstantUnit</value>
 
@@ -58,6 +73,8 @@
 		<value description="Capture on going processes with a one-quarter update cycle.">QuarterlyUnit</value>
 
 		<value description="Capture on going processes with a one-year update cycle.">YearlyUnit</value>
+
+		<value description="Capture on going processes with a multi-year update cycle.">MultiYearUnit</value>
 	</attribute>
 
 
