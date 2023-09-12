@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -12,6 +13,15 @@ The Sociome Data Commons provides a repository of datasets about the social, env
 <br><br>
 
 The Sociome Data Commons has assembled and integrated diverse datasets into a simple, well-documented interoperable format. Researchers can use an application programming interface (API) to access these datasets directly from code or via an interactive website. The datasets are categorized with a structured, standardized metadata model that conforms to FAIR principles. 
+
+<h5>Try it Out!</h5>
+We've plotted a 5% sample of addresses in the city of Chicago and annotated these addresses with data from our sociome dataset.
+
+<iframe src="{% static 'demo_map.html' %}" height="600" width="80%"></iframe>
+
+<p><br></p>
+
+We strive for reproducibility and all of the maps can be produced with our library <a href="{% static 'demo_notebook.html' %}">here</a>.
 
 <p><br></p>
 
