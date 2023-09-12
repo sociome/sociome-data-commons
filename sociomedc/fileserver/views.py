@@ -163,7 +163,7 @@ def dataset(request):
         if len(data_dict) > 0:
             data_dict_content =  Metadata.objects.filter(dataset=dataset[0], key='DataDictionaryContent')[0].value 
             csvStringIO = StringIO(data_dict_content)
-            df = pd.read_csv(csvStringIO, header=None) 
+            df = pd.read_csv(csvStringIO, header=None, on_bad_lines='skip') 
             df = df.rename(columns={0: 'Column Name', 1: 'Description'})
             data_dict_html = df.to_html(justify='left')
             print(df.to_html())     
